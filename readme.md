@@ -1,4 +1,4 @@
-# API SIPAKGURU
+# API SUPER ADMIN DINAS PENDIDIKAN
 
 ## Teknologi yang Digunakan
 
