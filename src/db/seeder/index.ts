@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { seedUser } from './dataseed/SeedUser'
 import { seedRole } from './dataseed/SeedRole'
+import { seedAplikasiPendukung } from './dataseed/SeedAplikasiPendukung'
 import parsingArgs from '../../utilities/ParseArgs'
 import fs from 'fs'
 import path from 'path'
@@ -10,6 +11,7 @@ const seedData : { key: string, value: () => Promise<void> }[] = [
   // key is the name of the seeder, value is the function to run
   { key: 'role', value: seedRole },
   { key: 'user', value: seedUser },
+  { key: 'aplikasi-pendukung', value: seedAplikasiPendukung },
 
   // Add more seeders here as needed
 ]

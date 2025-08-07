@@ -82,3 +82,88 @@ model Loger {
   detail    String
   createdAt DateTime @default(now())
 }
+
+model AplikasiPendukung {
+  id        Int       @id @default(autoincrement())
+  titleApk  String?
+  desApk    String?
+  linkUrl   String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+}
+
+model Pengumuman {
+  id        Int       @id @default(autoincrement())
+  date      DateTime?
+  title     String?
+  value     String?
+  file      String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+}
+
+model PertanyaanSkm {
+  id              Int       @id @default(autoincrement())
+  question        String?
+  asanswerOptions String?
+  createdAt       DateTime  @default(now())
+  deletedAt       DateTime?
+
+  jawabanSkm JawabanSkm[]
+}
+
+model DataSkm {
+  id        Int       @id @default(autoincrement())
+  name      String?
+  gender    String?
+  age       String?
+  alamat    String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+
+  jawabanSkm JawabanSkm[]
+}
+
+model JawabanSkm {
+  id              Int            @id @default(autoincrement())
+  dataSkmId       Int?
+  dataSkm         DataSkm?       @relation(fields: [dataSkmId], references: [id])
+  pertanyaanSkmId Int?
+  pertanyaanSkm   PertanyaanSkm? @relation(fields: [pertanyaanSkmId], references: [id])
+  question        String?
+  asanswer        String?
+  opsi            String?
+  createdAt       DateTime       @default(now())
+  deletedAt       DateTime?
+}
+
+model Pengaduan {
+  id        Int       @id @default(autoincrement())
+  name      String?
+  noTlp     String?
+  email     String?
+  alamat    String?
+  title     String?
+  deskripsi String?
+  file      String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+}
+
+model Blog {
+  id        Int       @id @default(autoincrement())
+  date      DateTime?
+  title     String?
+  value     String?
+  file      String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+}
+
+model Faq {
+  id        Int       @id @default(autoincrement())
+  question  String?
+  answare   String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+}

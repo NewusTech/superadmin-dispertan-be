@@ -43,6 +43,7 @@ const AuthController = {
       return ResponseData.serverError(res, error)
     }
   },
+  
   login : async (req: Request, res: Response) => {
     const reqBody = req.body
 
