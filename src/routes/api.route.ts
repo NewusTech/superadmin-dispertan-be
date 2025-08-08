@@ -11,6 +11,8 @@ import TestController from '@/controllers/master/TestController'
 import { ResponseData } from '@/utilities/Response'
 import { AplikasiPendukungRouter } from '@/routes/master/AplikasiPendukungRoute'
 import { PengumumanRouter } from '@/routes/master/PengumumanRoute'
+import { PertanyaanSkmRouter } from '@/routes/master/PertanyaanSkmRoute'
+import { DataSkmRouter } from '@/routes/master/DataSkmRoute'
 
 const fileUpload = fileUploadMiddleware.fileUploadHandler('uploads', {
   maxFileSize: CONFIG.maxFileSize as number,
@@ -34,6 +36,8 @@ export const appRouter = async function (app: Express): Promise<void> {
   app.use(CONFIG.apiUrl + 'master/user', UserRouter())
   app.use(CONFIG.apiUrl + 'master/aplikasi-pendukung', AplikasiPendukungRouter())
   app.use(CONFIG.apiUrl + 'master/pengumuman', PengumumanRouter())
+  app.use(CONFIG.apiUrl + 'master/pertanyaan-skm', PertanyaanSkmRouter())
+  app.use(CONFIG.apiUrl + 'master/data-skm', DataSkmRouter())
 
   app.post(CONFIG.apiUrl + 'test-up-file', fileUpload.single('images'), TestController.testFileUploadToS3)
   app.post(CONFIG.apiUrl + 'test-up-delete', fileUpload.single('images'), TestController.deleteFileFromS3)

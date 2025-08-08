@@ -103,13 +103,11 @@ model Pengumuman {
 }
 
 model PertanyaanSkm {
-  id              Int       @id @default(autoincrement())
-  question        String?
-  asanswerOptions String?
-  createdAt       DateTime  @default(now())
-  deletedAt       DateTime?
-
-  jawabanSkm JawabanSkm[]
+  id            Int       @id @default(autoincrement())
+  question      String?
+  answerOptions String?
+  createdAt     DateTime  @default(now())
+  deletedAt     DateTime?
 }
 
 model DataSkm {
@@ -125,16 +123,14 @@ model DataSkm {
 }
 
 model JawabanSkm {
-  id              Int            @id @default(autoincrement())
-  dataSkmId       Int?
-  dataSkm         DataSkm?       @relation(fields: [dataSkmId], references: [id])
-  pertanyaanSkmId Int?
-  pertanyaanSkm   PertanyaanSkm? @relation(fields: [pertanyaanSkmId], references: [id])
-  question        String?
-  asanswer        String?
-  opsi            String?
-  createdAt       DateTime       @default(now())
-  deletedAt       DateTime?
+  id        Int       @id @default(autoincrement())
+  dataSkmId Int?
+  dataSkm   DataSkm?  @relation(fields: [dataSkmId], references: [id])
+  question  String?
+  answer    String?
+  opsi      String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
 }
 
 model Pengaduan {
@@ -156,6 +152,7 @@ model Blog {
   title     String?
   value     String?
   file      String?
+  slug      String?
   createdAt DateTime  @default(now())
   deletedAt DateTime?
 }

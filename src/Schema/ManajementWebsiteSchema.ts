@@ -11,3 +11,8 @@ export const PengumumanSchema = z.object({
   title: z.string().min(3, 'Judul minimal harus 3 karakter'),
   value: z.string().min(3, 'Pengumuman minimal harus 3 karakter'),
 })
+
+export const PertanyaanSkm = z.object({
+  question: z.string().min(3, 'Pertanyaan minimal harus 3 karakter'),
+  asanswerOptions: z.string().min(3, 'Opsi minimal harus 3 karakter')
+})
