@@ -14,5 +14,5 @@ export const PengumumanSchema = z.object({
 
 export const PertanyaanSkm = z.object({
   question: z.string().min(3, 'Pertanyaan minimal harus 3 karakter'),
-  asanswerOptions: z.string().min(3, 'Opsi minimal harus 3 karakter')
+  asanswerOptions: z.string().min(3, 'Opsi minimal harus 3 karakter'),
 })
