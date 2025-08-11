@@ -13,8 +13,8 @@ const fileUpload = fileUploadMiddleware.fileUploadHandler('uploads', {
 export const PengumumanRouter = (): Router => {
   const router = Router()
   
-    router.get('/', PengumumanController.getAllPengumuman)
-    router.get('/detail/:id', PengumumanController.getDetailPengumuman)
+  router.get('/', PengumumanController.getAllPengumuman)
+  router.get('/detail/:id', PengumumanController.getDetailPengumuman)
 
   router.use(AuthMiddleware)
   

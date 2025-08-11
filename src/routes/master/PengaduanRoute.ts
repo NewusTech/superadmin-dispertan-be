@@ -5,10 +5,10 @@ import { fileUploadMiddleware } from '@/middleware/FileUploadMiddleware'
 import { CONFIG } from '@/config'
 
 const fileUpload = fileUploadMiddleware.fileUploadHandler('uploads', {
-    maxFileSize: CONFIG.maxFileSize as number,
-    allowedFileTypes : ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-    saveToBucket: CONFIG.saveToBucket,
-  })
+  maxFileSize: CONFIG.maxFileSize as number,
+  allowedFileTypes : ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+  saveToBucket: CONFIG.saveToBucket,
+})
 
 export const PengaduanRouter = (): Router => {
   const router = Router()
