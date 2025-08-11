@@ -12,11 +12,12 @@ const fileUpload = fileUploadMiddleware.fileUploadHandler('uploads', {
 
 export const PengumumanRouter = (): Router => {
   const router = Router()
+  
+    router.get('/', PengumumanController.getAllPengumuman)
+    router.get('/detail/:id', PengumumanController.getDetailPengumuman)
 
   router.use(AuthMiddleware)
-
-  router.get('/', PengumumanController.getAllPengumuman)
-  router.get('/detail/:id', PengumumanController.getDetailPengumuman)
+  
   router.post('/create', fileUpload.single('file'), PengumumanController.createPengumuman)
   router.put('/update/:id', fileUpload.single('file'), PengumumanController.updatePengumuman)
   router.delete('/delete/:id', PengumumanController.deletePengumuman)

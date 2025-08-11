@@ -13,6 +13,9 @@ import { AplikasiPendukungRouter } from '@/routes/master/AplikasiPendukungRoute'
 import { PengumumanRouter } from '@/routes/master/PengumumanRoute'
 import { PertanyaanSkmRouter } from '@/routes/master/PertanyaanSkmRoute'
 import { DataSkmRouter } from '@/routes/master/DataSkmRoute'
+import { PengaduanRouter } from '@/routes/master/PengaduanRoute'
+import { BlogRouter } from '@/routes/master/BlogRoute'
+import { FaqRouter } from '@/routes/master/FaqRoute'
 
 const fileUpload = fileUploadMiddleware.fileUploadHandler('uploads', {
   maxFileSize: CONFIG.maxFileSize as number,
@@ -38,6 +41,9 @@ export const appRouter = async function (app: Express): Promise<void> {
   app.use(CONFIG.apiUrl + 'master/pengumuman', PengumumanRouter())
   app.use(CONFIG.apiUrl + 'master/pertanyaan-skm', PertanyaanSkmRouter())
   app.use(CONFIG.apiUrl + 'master/data-skm', DataSkmRouter())
+  app.use(CONFIG.apiUrl + 'master/pengaduan', PengaduanRouter())
+  app.use(CONFIG.apiUrl + 'master/blog', BlogRouter())
+  app.use(CONFIG.apiUrl + 'master/faq', FaqRouter())
 
   app.post(CONFIG.apiUrl + 'test-up-file', fileUpload.single('images'), TestController.testFileUploadToS3)
   app.post(CONFIG.apiUrl + 'test-up-delete', fileUpload.single('images'), TestController.deleteFileFromS3)
