@@ -55,7 +55,7 @@ export const AuthRoute = () : Router => {
   
           const tokenPayload: jwtPayloadInterface = {
             id: userData.id,
-            name: userData.name as string
+            name: userData.name as string,
           }
   
           const token = generateAccesToken(tokenPayload, CONFIG.secret.jwtSecret, 3600 * 24) // 1 day
