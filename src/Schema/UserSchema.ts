@@ -5,6 +5,9 @@ export const UserSchemaForCreate = z.object({
   email: z.string().email('Email tidak valid'),
   password: z.string().min(6, 'Password minimal harus 6 karakter'),
   roleId: z.number(),
+  gender: z.string(),
+  telp  : z.string().min(10, 'Nomor Telepon minimal harus 10 karakter'),
+  address: z.string(),
 })
 
 
@@ -29,5 +32,9 @@ export const RegisterSchema = z.object({
 export const LoginSchema = z.object({
   email: z.string().email('Email tidak valid'),
   password: z.string().min(6, 'Password minimal harus 6 karakter'),
+})
+
+export const RoleSchema = z.object({
+  name: z.string().min(3, 'Nama minimal harus 3 karakter'),
 })
 

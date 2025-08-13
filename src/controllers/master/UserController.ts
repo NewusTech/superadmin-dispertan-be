@@ -7,6 +7,8 @@ import { hashPassword } from '@/utilities/PasswordHandler'
 import { getIO } from '@/config/socket'
 import { logActivity } from '@/utilities/LogActivity'
 import { ResponseData } from '@/utilities/Response'
+import { handleUpload } from '@/utilities/UploadHandler'
+import { deleteFileFromS3 } from '@/utilities/AwsHandler'
 
 const UserController = {
   getAllUser : async (req: Request, res: Response): Promise<any> => {
@@ -17,8 +19,6 @@ const UserController = {
       )
 
       const userLogin = req.user
-
-      console.log(userLogin?.role)
 
       const whereCondition = {
         deletedAt: null,
@@ -77,8 +77,16 @@ const UserController = {
 
   createUser: async (req: Request, res: Response): Promise<any> => {
     try {
+
+      if(!req.file){
+        return ResponseData.badRequest(res, 'File not found in request')
+      }
+
       const reqBody = req.body
       const userLogin = req.user as jwtPayloadInterface
+
+      reqBody.img = await handleUpload(req, reqBody.name.split(' ').join('_') as string, 'profile')
+      reqBody.roleId = Number(reqBody.roleId)
 
       const validationResult = validateInput(UserSchemaForCreate, reqBody)
 
@@ -114,6 +122,9 @@ const UserController = {
 
       return ResponseData.created(res, userData, 'Success')
     } catch (error: any) {
+      if (error.code === 'P2002') {
+        return ResponseData.badRequest(res, `Duplicate value for field: ${error.meta.target}`)
+      }
       return ResponseData.serverError(res, error)
     }
   },
@@ -121,6 +132,7 @@ const UserController = {
   updateUser: async (req: Request, res: Response): Promise<any> => {
     const userId = parseInt(req.params.id as string)
     const reqBody = req.body
+    reqBody.roleId = Number(reqBody.roleId)
 
     const validationResult = validateInput(UserSchemaForUpdate, reqBody)
 
@@ -135,6 +147,11 @@ const UserController = {
 
       if (!userData) {
         return ResponseData.notFound(res, 'User not found')
+      }
+
+      reqBody.img = userData?.img
+      if(req.file){
+        reqBody.img = await handleUpload(req, reqBody.name.split(' ').join('_') as string, 'profile')
       }
 
       const updatedUserData = await prisma.user.update({
@@ -212,6 +229,7 @@ const UserController = {
         return ResponseData.notFound(res, 'User not found')
       }
       
+      await deleteFileFromS3(userData?.img || '') 
 
       await prisma.user.delete({
         where: { id: userId },

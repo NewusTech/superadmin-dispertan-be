@@ -59,7 +59,7 @@ const uploadFileToS3WithOutRedis = async (file: FileType, folderPath: string): P
  */
 const deleteFileFromS3 = async (fileUrl: string): Promise<void> => {
 
-  const filePath = fileUrl.split('/').slice(4).join('/') // Mengambil path file dari URL
+  const filePath = fileUrl.split('/').slice(3).join('/') // Mengambil path file dari URL
   try {
 
     console.log('filePath', filePath)

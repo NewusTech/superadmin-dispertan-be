@@ -41,7 +41,7 @@ export const AuthRoute = () : Router => {
               email: true,
 
               role: {
-                select: { name: true,roleType : true },
+                select: { name: true },
               },
               // profileImage: true,
             },
@@ -55,8 +55,7 @@ export const AuthRoute = () : Router => {
   
           const tokenPayload: jwtPayloadInterface = {
             id: userData.id,
-            name: userData.name as string,
-            role: userData.role.roleType as string,
+            name: userData.name as string
           }
   
           const token = generateAccesToken(tokenPayload, CONFIG.secret.jwtSecret, 3600 * 24) // 1 day

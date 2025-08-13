@@ -23,7 +23,7 @@ enum RoleType {
 model Role {
   id              Int              @id @default(autoincrement())
   name            String
-  roleType        RoleType         @default(USER)
+  // roleType        RoleType         @default(USER)
   rolePermissions RolePermission[]
   users           User[]
 }
@@ -48,6 +48,10 @@ model User {
   password  String?
   roleId    Int
   role      Role      @relation(fields: [roleId], references: [id])
+  gender    String?
+  telp      String?
+  address   String?
+  img       String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
