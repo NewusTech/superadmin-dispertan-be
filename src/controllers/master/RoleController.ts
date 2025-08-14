@@ -17,7 +17,7 @@ const RoleController = {
       )
       
       const whereCondition = {
-        deletedAt: null
+        deletedAt: null,
       } as any
 
       if(req.query.search){
@@ -65,10 +65,10 @@ const RoleController = {
         include: {
           rolePermissions: {
             include: {
-              permission: true
-            }
-          }
-        }
+              permission: true,
+            },
+          },
+        },
       })
             
       if (!data) {
@@ -100,17 +100,17 @@ const RoleController = {
                 
         const role = await tx.role.create({
           data: {
-            name : reqBody.name
+            name : reqBody.name,
           },
         })
 
         for (let i = 0; i < reqBody.permissions.length; i++) {
-          const permissions = reqBody.permissions[i];
+          const permissions = reqBody.permissions[i]
 
-          let dataPermissions = await tx.permissions.create({
+          const dataPermissions = await tx.permissions.create({
             data: {
-              name: permissions
-            }
+              name: permissions,
+            },
           })
 
           await tx.rolePermission.create({
@@ -120,8 +120,8 @@ const RoleController = {
               canRead: true,
               canWrite: true,
               canUpdate: true,
-              canDelete: true
-            }
+              canDelete: true,
+            },
           })
         }
 
@@ -155,41 +155,41 @@ const RoleController = {
       const result = await prisma.$transaction(async (tx) => {
                 
         const role = await tx.role.update({
-          where: {id},
+          where: { id },
           data: {
-            name : reqBody.name
+            name : reqBody.name,
           },
         })
 
         const rolePermission = await tx.rolePermission.findMany({
           where: {
-            roleId : role?.id
-          }
+            roleId : role?.id,
+          },
         })
 
-        const permissionIds = rolePermission.map(rp => rp.permissionId);
+        const permissionIds = rolePermission.map(rp => rp.permissionId)
 
         await tx.rolePermission.deleteMany({
           where: {
-            roleId: role?.id
-          }
+            roleId: role?.id,
+          },
         })
 
         await tx.permissions.deleteMany({
           where: {
             id: {
-              in: permissionIds
-            }
-          }
+              in: permissionIds,
+            },
+          },
         })
 
         for (let i = 0; i < reqBody.permissions.length; i++) {
-          const permissions = reqBody.permissions[i];
+          const permissions = reqBody.permissions[i]
 
-          let dataPermissions = await tx.permissions.create({
+          const dataPermissions = await tx.permissions.create({
             data: {
-              name: permissions
-            }
+              name: permissions,
+            },
           })
 
           await tx.rolePermission.create({
@@ -199,8 +199,8 @@ const RoleController = {
               canRead: true,
               canWrite: true,
               canUpdate: true,
-              canDelete: true
-            }
+              canDelete: true,
+            },
           })
         }
 
@@ -222,8 +222,8 @@ const RoleController = {
       
       const cekRole = await prisma.role.findFirst({
         where: {
-          id
-        }
+          id,
+        },
       })
 
       if(!cekRole){
@@ -242,7 +242,7 @@ const RoleController = {
     } catch (error) {
       return ResponseData.serverError(res, error)
     }
-  }
+  },
 }
 
 export default RoleController

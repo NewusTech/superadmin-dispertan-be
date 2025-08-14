@@ -75,18 +75,18 @@ const AuthController = {
 
       const RolePermission = await prisma.rolePermission.findMany({
         where: {
-          roleId: userData.role.id
+          roleId: userData.role.id,
         },
         include: {
-          permission: true
-        }
+          permission: true,
+        },
       })
 
-      let permission = [] as any
+      const permission = [] as any
 
       RolePermission.map((e)=> {
         permission.push({
-          "name" : e.permission.name
+          'name' : e.permission.name,
         })
       })
 
@@ -94,7 +94,7 @@ const AuthController = {
         id: userData.id,
         name: userData.name as string,
         role: userData.role.name,
-        permission: permission
+        permission: permission,
       }
 
       const token = generateAccesToken(tokenPayload, CONFIG.secret.jwtSecret, 3600 * 24) // 1 day

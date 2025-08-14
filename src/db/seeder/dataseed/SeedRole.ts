@@ -22,7 +22,7 @@ export async function seedRole() {
     const role: Omit<Role, 'id'> = {
       name: formatRoleName(item),
       roleType: item,
-      deletedAt: null
+      deletedAt: null,
     }
 
     // Check if the role already exists
