@@ -72,10 +72,29 @@ const AuthController = {
       if (!passwordMatch) {
         return ResponseData.unauthorized(res, 'Password not match')
       }
+
+      const RolePermission = await prisma.rolePermission.findMany({
+        where: {
+          roleId: userData.role.id
+        },
+        include: {
+          permission: true
+        }
+      })
+
+      let permission = [] as any
+
+      RolePermission.map((e)=> {
+        permission.push({
+          "name" : e.permission.name
+        })
+      })
+
       const tokenPayload = {
         id: userData.id,
         name: userData.name as string,
         role: userData.role.name,
+        permission: permission
       }
 
       const token = generateAccesToken(tokenPayload, CONFIG.secret.jwtSecret, 3600 * 24) // 1 day

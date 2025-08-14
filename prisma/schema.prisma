@@ -22,10 +22,11 @@ enum RoleType {
 
 model Role {
   id              Int              @id @default(autoincrement())
-  name            String
-  // roleType        RoleType         @default(USER)
+  name            String           @unique
+  roleType        RoleType         @default(USER)
   rolePermissions RolePermission[]
   users           User[]
+  deletedAt       DateTime?
 }
 
 model RolePermission {

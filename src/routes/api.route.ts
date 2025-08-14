@@ -16,6 +16,7 @@ import { DataSkmRouter } from '@/routes/master/DataSkmRoute'
 import { PengaduanRouter } from '@/routes/master/PengaduanRoute'
 import { BlogRouter } from '@/routes/master/BlogRoute'
 import { FaqRouter } from '@/routes/master/FaqRoute'
+import { RoleRouter } from '@/routes/master/RoleRoute'
 
 const fileUpload = fileUploadMiddleware.fileUploadHandler('uploads', {
   maxFileSize: CONFIG.maxFileSize as number,
@@ -44,6 +45,7 @@ export const appRouter = async function (app: Express): Promise<void> {
   app.use(CONFIG.apiUrl + 'master/pengaduan', PengaduanRouter())
   app.use(CONFIG.apiUrl + 'master/blog', BlogRouter())
   app.use(CONFIG.apiUrl + 'master/faq', FaqRouter())
+  app.use(CONFIG.apiUrl + 'master/role', RoleRouter())
 
   app.post(CONFIG.apiUrl + 'test-up-file', fileUpload.single('images'), TestController.testFileUploadToS3)
   app.post(CONFIG.apiUrl + 'test-up-delete', fileUpload.single('images'), TestController.deleteFileFromS3)
